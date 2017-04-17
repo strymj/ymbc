@@ -9,15 +9,21 @@ void ctrlC(int aStatus)
 	exit(aStatus);
 }
 
-int Ymbc::init()
+bool Ymbc::init()
 {
 	signal(SIGINT, ctrlC);
 	if (!Spur_init()) {
 		fprintf(stderr, "ERROR : cannot open spur\n");
 		cout<<"cannot open spur."<<endl;
-		return 0;
+		return false;
 	}
-	return 1;
+
+	Spur_set_vel(0.3);
+	Spur_set_accel(0.6);
+	Spur_set_angvel(1.5);
+	Spur_set_angaccel(2.5);
+
+	return true;
 }
 
 void Ymbc::keycon(double vel, double accel, double angvel, double angaccel)
@@ -26,19 +32,20 @@ void Ymbc::keycon(double vel, double accel, double angvel, double angaccel)
 
 	cout<<"control yamabiko with keyboard!!!"<<endl;
 	cout<<"##### usage #####"<<endl;
-	cout<<"o       : stop"<<endl; 
+	cout<<"\\       : stop"<<endl; 
 	cout<<"<Up>    : straight"<<endl; 
 	cout<<"<Down>  : back"<<endl; 
 	cout<<"<PgUp>  : go left"<<endl; 
 	cout<<"<PgDn>  : go right"<<endl; 
 	cout<<"<Left>  : turn left"<<endl; 
 	cout<<"<Right> : turn right"<<endl; 
-	enum {STRAIGHT=0x41, BACK=0x42, GO_LEFT=0x35, GO_RIGHT=0x36, TURN_REFT=0x44, TURN_RIGHT=0x43, STOP='o'};
+	enum {STRAIGHT=0x41, BACK=0x42, GO_LEFT=0x35, GO_RIGHT=0x36, TURN_REFT=0x44, TURN_RIGHT=0x43, STOP='\\'};
 	while (1) {
 		if (kbhit()) {
 			short int key;
 			key = getchar();
-			printf("%X\n",key);
+			// check key char
+			//printf("%X\n",key);
 			switch(key){
 				case STRAIGHT:
 					cout<<"   straight"<<endl;

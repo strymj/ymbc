@@ -8,7 +8,7 @@ int main(int argc, char **argv)
 	if (!ymbc.init()) return -1;
 	cout<<"ybkey!"<<endl;
 
-	ymbc.keycon(0.3, 1.0, 1.0, 2.0);
+	ymbc.keycon(0.3, 1.0, 0.5, 2.0);
 	
 	return 0;
 }

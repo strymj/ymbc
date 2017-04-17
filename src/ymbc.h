@@ -16,7 +16,7 @@ class Ymbc
 {
 	public:
 		// if init success : return 1   else : return 0
-		int init();
+		bool init();
 		// control with keyboard (vel, accel, angvel, angaccel);
 		void keycon(double, double, double, double);
 	private:

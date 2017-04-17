@@ -22,12 +22,7 @@ int main(int argc, char **argv)
 {
 	if (!ymbc.init()) return -1;
 	cout<<"kadai1 program."<<endl;
-
-	Spur_set_vel(0.3);
-	Spur_set_accel(1.0);
-	Spur_set_angvel(1.5);
-	Spur_set_angaccel(2.0);
-
+	
 	// global flame init
 	Spur_set_pos_GL(-BODY_Y/2.0, 0.0, M_PI/2.0);
 	
