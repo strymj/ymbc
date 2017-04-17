@@ -1,0 +1,5 @@
+/home/yamaji-s/researches/workspace/ymbc/build/CMakeFiles/edit_cache.dir
+/home/yamaji-s/researches/workspace/ymbc/build/CMakeFiles/ymbc.dir
+/home/yamaji-s/researches/workspace/ymbc/build/CMakeFiles/ybkey.dir
+/home/yamaji-s/researches/workspace/ymbc/build/CMakeFiles/kadai1.dir
+/home/yamaji-s/researches/workspace/ymbc/build/CMakeFiles/rebuild_cache.dir

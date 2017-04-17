@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/yamaji-s/researches/workspace/ymbc/src/kadai1.cpp
+ymbc.h
+/home/yamaji-s/researches/workspace/ymbc/src/ymbc.h
+
+/home/yamaji-s/researches/workspace/ymbc/src/ymbc.h
+unistd.h
+-
+ypspur.h
+-
+stdlib.h
+-
+signal.h
+-
+cstdio
+-
+cmath
+-
+iostream
+-
+string
+-
+

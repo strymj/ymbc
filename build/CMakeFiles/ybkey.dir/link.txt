@@ -1,0 +1,1 @@
+/usr/bin/c++   -O3 -DNDEBUG   CMakeFiles/ybkey.dir/src/ybkey.cpp.o  -o ../bin/ybkey -rdynamic ../lib/libymbc.a -lypspur 

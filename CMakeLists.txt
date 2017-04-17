@@ -24,6 +24,13 @@ message(STATUS "CMAKE_CXX_FLAGS_RELEASE: ${CMAKE_CXX_FLAGS_RELEASE}")
 include_directories(src)
 add_library(ymbc
 	src/ymbc.cpp)
+
+add_executable(ybkey
+	src/ybkey.cpp)
+target_link_libraries(ybkey
+	ymbc
+	ypspur)
+
 add_executable(kadai1
 	src/kadai1.cpp)
 target_link_libraries(kadai1
