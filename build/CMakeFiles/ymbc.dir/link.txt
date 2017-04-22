@@ -1,2 +1,0 @@
-/usr/bin/ar qc ../lib/libymbc.a  CMakeFiles/ymbc.dir/src/ymbc.cpp.o
-/usr/bin/ranlib ../lib/libymbc.a

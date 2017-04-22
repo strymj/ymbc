@@ -1,0 +1,5 @@
+<launch>
+
+	<node name="ybkey" pkg="ymbc" type="ybkey" output="screen" />
+
+</launch>

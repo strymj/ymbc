@@ -1,38 +1,56 @@
-cmake_minimum_required(VERSION 2.8 FATAL_ERROR)
-
+cmake_minimum_required (VERSION 2.8.3)
 project(ymbc)
 
-# set the default path for built executables to the "bin" directory
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
-# set the default path for built libraries to the "lib" directory
-set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
+find_package(catkin REQUIRED COMPONENTS
+	roscpp
+	rospy
+	std_msgs
+	lib2dl
+	)
 
-# set the build type
-set(CMAKE_BUILD_TYPE Release)
-# confirmation messages
-message(STATUS "CMAKE_BUILD_TYPE: ${CMAKE_BUILD_TYPE}")
-message(STATUS "CMAKE_C_FLAGS: ${CMAKE_C_FLAGS}")
-message(STATUS "CMAKE_C_FLAGS_RELEASE: ${CMAKE_C_FLAGS_RELEASE}")
-message(STATUS "CMAKE_CXX_FLAGS: ${CMAKE_CXX_FLAGS}")
-message(STATUS "CMAKE_CXX_FLAGS_RELEASE: ${CMAKE_CXX_FLAGS_RELEASE}")
+find_package(OpenCV REQUIRED)
 
-#include_directories(/usr/local/include/mylib1 /usr/local/include/mylib2)
-#link_directories(/usr/local/lib/mylib1 /usr/local/lib/mylib2)
-#add_definitions(-DMYDEFINITION1 -DMYDEFINITION2)
+catkin_package(
+	INCLUDE_DIRS include
+	LIBRARIES ymbc 
+	CATKIN_DEPENDS roscpp rospy std_msgs
+	DEPENDS system_lib
+	)
 
-# set the executable name, sources, libraries
-include_directories(src)
+include_directories(
+	include
+	${catkin_INCLUDE_DIRS}
+	${OpenCV_INCLUDE_DIRS}
+	)
+
 add_library(ymbc
 	src/ymbc.cpp)
 
+# key control with keyboard
 add_executable(ybkey
 	src/ybkey.cpp)
 target_link_libraries(ybkey
+	${catkin_LIBRARIES}
 	ymbc
-	ypspur)
+	ypspur
+	)
 
+# kadai1
 add_executable(kadai1
 	src/kadai1.cpp)
 target_link_libraries(kadai1
+	${catkin_LIBRARIES}
 	ymbc
-	ypspur)
+	ypspur
+	)
+
+# kadai2
+add_executable(kadai2
+	src/kadai2.cpp)
+target_link_libraries(kadai2
+	${catkin_LIBRARIES}
+	${OpenCV_LIBRARIES}
+	ymbc
+	ypspur
+	lib2dl
+	)

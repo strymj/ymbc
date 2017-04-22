@@ -2,16 +2,19 @@
 #include "kbhit.h"
 using namespace std;
 
-void ctrlC(int aStatus)
+bool INTERRUPT = false;
+
+void ymbc_ctrlC(int aStatus)
 {
 	Spur_stop();
 	signal(SIGINT, NULL);
-	exit(aStatus);
+	INTERRUPT = true;
+	//exit(aStatus);
 }
 
 bool Ymbc::init()
 {
-	signal(SIGINT, ctrlC);
+	signal(SIGINT, ymbc_ctrlC);
 	if (!Spur_init()) {
 		fprintf(stderr, "ERROR : cannot open spur\n");
 		cout<<"cannot open spur."<<endl;
@@ -40,7 +43,7 @@ void Ymbc::keycon(double vel, double accel, double angvel, double angaccel)
 	cout<<"<Left>  : turn left"<<endl; 
 	cout<<"<Right> : turn right"<<endl; 
 	enum {STRAIGHT=0x41, BACK=0x42, GO_LEFT=0x35, GO_RIGHT=0x36, TURN_REFT=0x44, TURN_RIGHT=0x43, STOP='\\'};
-	while (1) {
+	while (!INTERRUPT) {
 		if (kbhit()) {
 			short int key;
 			key = getchar();

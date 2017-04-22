@@ -5,12 +5,13 @@
 #include <ypspur.h>
 #include <stdlib.h>
 #include <signal.h>
+#include <sys/time.h>
 #include <cstdio>
 #include <cmath>
 #include <iostream>
 #include <string>
 
-void ctrlC(int);
+void ymbc_ctrlC(int);
 
 class Ymbc
 {

@@ -1,0 +1,5 @@
+<launch>
+
+	<node name="kadai1" pkg="ymbc" type="kadai1" output="screen" />
+
+</launch>
