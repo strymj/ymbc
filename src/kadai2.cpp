@@ -1,8 +1,14 @@
 #include <ros/ros.h>
 #include <sensor_msgs/LaserScan.h>
+#include <geometry_msgs/PoseArray.h>
+#include <tf/transform_listener.h>
 #include "lib2dl.h"
 #include "ymbc.h"
 using namespace std;
+
+#define D_SHAKO 0.4
+#define M_SHAKO 0.15
+
 
 #define POLE_D 0.115
 #define POLW_M 0.03
@@ -35,41 +41,58 @@ int main(int argc, char **argv)
 	int LoopRate;
 	string ScanTopic, ScanPubTopic;
 
-	node_.param("RoopRate", LoopRate, 30);
+	node_.param("LoopRate", LoopRate, 30);
 	node_.param("ScanTopic", ScanTopic, string("/scan"));
 	node_.param("ScanTopic", ScanPubTopic, string("/scan_clustered"));
 
 	ros::Rate looprate(LoopRate);
 	ros::Subscriber ScanSub = node_.subscribe(ScanTopic, 1, ScanCallback);
 	ros::Publisher ScanClusteredPub = node_.advertise<sensor_msgs::LaserScan>(ScanPubTopic, 1);
+	ros::Publisher LNVPub = node_.advertise<geometry_msgs::PoseArray>("LNV", 1);
 
 	if (!ymbc.init()) return -1;
 
 	while(ros::ok())
 	{
 		if(!ScanSubFlag) {
-			Spur_stop();
+			// Spur_stop();
 		}
 		else {
 			sensor_msgs::LaserScan scan_clustered;
 			lib2dl.ScanRegister(scan);
-			lib2dl.Clustering(0.03, 30);
-			lib2dl.GetClusteredScan(scan_clustered);
-			vector<Lib2dl::CircleData> polelist;
-			lib2dl.GetCircleList(polelist, 0.0, 1.0, 3.0);
-			for(int i=0; i<polelist.size(); ++i) {
-				cout<<"x = "<<polelist[i].x<<endl;
-				cout<<"y = "<<polelist[i].y<<endl;
-				cout<<"d = "<<polelist[i].r*2<<endl;
-				cout<<"e = "<<polelist[i].ErrorBar<<endl;
-				cout<<endl;
+			lib2dl.Clustering(0.015, 0.01, 10);
+			vector<Lib2dl::LineData> linelist;
+			lib2dl.GetLineList(linelist, 0.003, true);
+			for (int i=0; i<linelist.size(); ++i) {
+				double distance = linelist[i].b / sqrt(1+linelist[i].a);
 			}
-			ScanClusteredPub.publish(scan_clustered);
-			ScanSubFlag = false;
 		}
 		ros::spinOnce();
 		looprate.sleep();
 	}
+
+
+
+			// geometry_msgs::PoseArray posearray;
+			// posearray.header = scan.header;
+			// lib2dl.LNV();
+			// vector<Lib2dl::LNVData> lnvlist;
+			// lib2dl.GetLNVList(lnvlist);
+			// for (int i=0; i<lnvlist.size(); ++i) {
+			// 	geometry_msgs::Pose pose;
+			// 	pose.position.x = lnvlist[i].x; 
+			// 	pose.position.y = lnvlist[i].y; 
+			// 	pose.position.z = 0.0;
+			// 	double yaw = atan(linelist[i].a);
+			// 	geometry_msgs::Quaternion q;
+			// 	quaternionTFToMsg(tf::createQuaternionFromRPY(0.0,0.0,lnvlist[i].theta), q);
+			// 	pose.orientation = q;
+			// 	posearray.poses.push_back(pose);
+			// }
+			// LNVPub.publish(posearray);
+			// lib2dl.GetClusteredScan(scan_clustered);
+			// ScanClusteredPub.publish(scan_clustered);
+			// ScanSubFlag = false;
 
 	return 0;
 }
