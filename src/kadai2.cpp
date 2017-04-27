@@ -95,8 +95,6 @@ int main(int argc, char **argv)
 	}
 	
 	lib2dl.SetLidarFrame(0.15, 0.0);
-	lib2dl.ImgPlotConfig(240, 0.8);
-
 
 	// while(ros::ok())
 	// {
@@ -119,7 +117,8 @@ int main(int argc, char **argv)
 	// carbox detection
 	Lib2dl::Line line2;
 	bool line2_exist = false;
-	lib2dl.ImgPlotConfig(240, 1.5);
+	Lib2dl::Point plotcenter = {0.7, 0.0};
+	lib2dl.ImgPlotConfig(240, 0.8, plotcenter);
 	while(ros::ok())
 	{
 		if (ScanSubFlag) {
