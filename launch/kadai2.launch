@@ -11,6 +11,8 @@
 		<param name="intensity" type="bool" value="false"/>
 	</node>
 
+	<!--
 	<node name="rviz" pkg="rviz" type="rviz" />
+	-->
 
 </launch>

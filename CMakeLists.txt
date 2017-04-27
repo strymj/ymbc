@@ -5,6 +5,8 @@ find_package(catkin REQUIRED COMPONENTS
 	roscpp
 	rospy
 	std_msgs
+	cv_bridge
+	image_transport
 	lib2dl
 	)
 
