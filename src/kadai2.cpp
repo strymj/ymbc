@@ -36,7 +36,7 @@ int LineDetection(Lib2dl::Line& line, double distm, double distM, double thetam,
 {
 	bool ans = false;
 	lib2dl.ScanRegister(scan);
-	lib2dl.ImgProt();
+	lib2dl.ImgPlot();
 	lib2dl.ImgShow("scan");
 	vector<Lib2dl::Line> lines;
 	lib2dl.GetHoughLinesP(lines, 2.0, M_PI/360, threshold, 0.15, 0.1);
@@ -95,7 +95,7 @@ int main(int argc, char **argv)
 	}
 	
 	lib2dl.SetLidarFrame(0.15, 0.0);
-	lib2dl.ImgProtConfig(240, 0.8);
+	lib2dl.ImgPlotConfig(240, 0.8);
 
 
 	// while(ros::ok())
@@ -119,7 +119,7 @@ int main(int argc, char **argv)
 	// carbox detection
 	Lib2dl::Line line2;
 	bool line2_exist = false;
-	lib2dl.ImgProtConfig(240, 1.5);
+	lib2dl.ImgPlotConfig(240, 1.5);
 	while(ros::ok())
 	{
 		if (ScanSubFlag) {
@@ -135,7 +135,7 @@ int main(int argc, char **argv)
 	// line1 detection
 	Lib2dl::Line line1;
 	bool line1_exist = false;
-	lib2dl.ImgProtConfig(240, 1.5);
+	lib2dl.ImgPlotConfig(240, 1.5);
 	while(ros::ok())
 	{
 		if (ScanSubFlag) {
